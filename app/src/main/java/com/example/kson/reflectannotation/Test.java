@@ -1,8 +1,11 @@
 package com.example.kson.reflectannotation;
 
+import com.example.kson.reflectannotation.annotation.MyAnnotation;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 /**
  * Author:kson
@@ -63,34 +66,61 @@ public class Test
 //            e.printStackTrace();
 //        }
 
-        //获取public方法
-        try {
-            //获取方法实例
-            Method method = c2.getMethod("fun",String.class);
-            //创建构造方法
-            Constructor constructor = c1.getConstructor(null);
-            //通过反射的newinstance方法，得到此对象的实例
-            Person person1 = (Person) constructor.newInstance(null);
-//            person.fun("kson");之前调用
-            method.invoke(person1,"kson");//通过反射机制，调用方法
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+//        //获取public方法
+//        try {
+//            //获取方法实例
+//            Method method = c2.getMethod("fun",String.class);
+//            //创建构造方法
+//            Constructor constructor = c1.getConstructor(null);
+//            //通过反射的newinstance方法，得到此对象的实例
+//            Person person1 = (Person) constructor.newInstance(null);
+////            person.fun("kson");之前调用
+//            method.invoke(person1,"kson");//通过反射机制，调用方法
 //
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+////
+//        try {
+//            Method method = c1.getDeclaredMethod("fun1", new Class[]{int.class,String.class,String.class});
+//            Object obj = c1.getConstructor(null).newInstance(null);
+//            method.setAccessible(true);
+//            method.invoke(obj,100,"kson","1");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        new Person().fff();
+
+
+        //得到自定义注解的值
         try {
-            Method method = c1.getDeclaredMethod("fun1", new Class[]{int.class,String.class,String.class});
-            Object obj = c1.getConstructor(null).newInstance(null);
-            method.setAccessible(true);
-            method.invoke(obj,100,"kson","1");
-        } catch (Exception e) {
+            Method method = c1.getMethod("fun", String.class);
+            MyAnnotation myAnnotation = method.getAnnotation(MyAnnotation.class);
+            if (myAnnotation!=null){
+                System.out.println(myAnnotation.name());
+            }
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
 
-        new Person().fff();
+        try {
+            Constructor constructor = c1.getDeclaredConstructor(String.class,int.class);
+            MyAnnotation myAnnotation = (MyAnnotation) constructor.getAnnotation(MyAnnotation.class);
+            if (myAnnotation!=null){
+                System.out.println(myAnnotation.name());
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
 
+
+
+        User<Integer> user = new User<>(1);
+//        user.fun(100);
+        System.out.println(""+user.getT());;
 
 
 

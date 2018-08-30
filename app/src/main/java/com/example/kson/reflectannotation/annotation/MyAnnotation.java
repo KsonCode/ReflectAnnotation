@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * Description:自定义myannotaion注解
  */
 @Retention(RetentionPolicy.RUNTIME)//三个重要生命周期阶段，三选其一
-@Target({ElementType.CONSTRUCTOR,ElementType.TYPE})//修饰的元素：类，方法，成员变量等等
+@Target({ElementType.CONSTRUCTOR,ElementType.TYPE,ElementType.METHOD})//修饰的元素：类，方法，成员变量等等
 @Documented//javadoc里面
 @Inherited//是否存在继承性
 public @interface MyAnnotation {

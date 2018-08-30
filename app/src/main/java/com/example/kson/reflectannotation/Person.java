@@ -59,6 +59,7 @@ public class Person extends Father{
      * 方法的作用
      * @param name 姓名
      */
+    @MyAnnotation(age = 100,name = "hello")
     public void fun(String name){
         System.out.println("name:"+name);
     }
